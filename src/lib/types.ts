@@ -18,4 +18,5 @@ export interface JobPosting {
 	experienceLevel: string;
 	isRemote: boolean;
 	description: string;
+	viewCount: Int16Array;
 }

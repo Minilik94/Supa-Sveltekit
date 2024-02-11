@@ -1,7 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,6 +8,13 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Roles {
+  id    String  @unique @default(uuid())
+  name  String  @unique
+  User  User[]
+  Apply Apply[]
 }
 
 model Jobs {
@@ -22,7 +28,34 @@ model Jobs {
   requirements        String
   jobResponsibilities String
   salary              Int
+  slug                String
   applicationDeadline DateTime @default(now())
   experienceLevel     String
   isRemote            Boolean
+  viewCount           Int      @default(0)
+  Apply               Apply[]
+}
+
+model User {
+  id        String   @unique @default(uuid())
+  email     String   @unique
+  role      Roles?   @relation(fields: [rolesId], references: [id])
+  rolesId   String?
+  createAd  DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  Apply     Apply[]
+}
+
+model Apply {
+  id          String   @unique @default(uuid())
+  jobId       String
+  userId      String
+  job         Jobs     @relation(fields: [jobId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+  coverLetter String?
+  resume      String?
+  status      String   @default("pending")
+  appliedAt   DateTime @default(now())
+  roleId      String?
+  role        Roles?   @relation(fields: [roleId], references: [id])
 }

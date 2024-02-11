@@ -5,13 +5,13 @@
 
 	export let data: PageData;
 	let job: JobPosting = data.jobDetail;
-	console.log(job);
 
-	const id = job.id
 </script>
 
 {#if !job || job === undefined || job === null}
-	<div class="loading loading-ball text-green-600 backdrop-hue-rotate-180"></div>
+	<div
+		class="loading loading-ball text-green-600 backdrop-hue-rotate-180 h-full flex items-center justify-center">
+	</div>
 {/if}
 
 <div class="max-w-4xl mx-auto">
@@ -41,7 +41,6 @@
 				<div class="mt-4">
 					<h3 class="text-lg font-semibold">Requirements</h3>
 					{#if job.requirements}
-							
 						<p class="text-gray-600 mt-2">{job.requirements}</p>
 					{/if}
 				</div>
@@ -49,13 +48,13 @@
 				<div class="mt-4">
 					<h3 class="text-lg font-semibold">Job Responsibilities</h3>
 					{#if job.jobResponsibilities}
-					
 						<p class="text-gray-600 mt-2">{job.jobResponsibilities}</p>
 					{/if}
 				</div>
 
 				<div class="card-actions justify-end mt-4">
-					<button class="btn btn-primary" type="submit" on:click={() => goto(`/${job.id}`)}>Apply Now</button>
+					<button class="btn btn-primary" type="submit" on:click={() => goto(`/${job.id}`)}
+						>Apply Now</button>
 				</div>
 			</div>
 		</div>

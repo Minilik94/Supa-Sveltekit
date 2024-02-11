@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { LayoutData } from './$types';
 	import '../app.css';
-	import { page, navigating } from '$app/stores';
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	export let data: LayoutData;
+	// export let data: LayoutData;
 </script>
 
 <svelte:head>
